@@ -5,8 +5,7 @@ https://nvidia-cosmos.github.io/cosmos-cookbook/recipes/post_training/reason2/in
 ## Quick Start
 
 ### 1. Data Preparation
-Create a question/answer pair json file similar to this structure:
-`qa.json`
+Create a question/answer pair `qa.json` file with this structure:
 ``` json
 [
   {
@@ -38,7 +37,7 @@ cosmos-rl --config sft_config.toml custom_sft.py
 ```
 
 ### 3. Evaluate Results
-Run the following:
+Finally, after the model has been trained, in order to evaluate qualitative results, we run the following:
 ```
 python3 post_training_inference.py --model /path/to/saved/model/with/safetensors --video /path/to/output.mp4
 ```
