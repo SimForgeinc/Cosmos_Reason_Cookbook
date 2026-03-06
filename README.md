@@ -6,7 +6,7 @@ https://nvidia-cosmos.github.io/cosmos-cookbook/recipes/post_training/reason2/in
 
 ### 1. Data Preparation
 Create a question/answer pair json file similar to this structure:
-``` qa.json
+```
 [
   {
     "video_path": "path/to/video/example.mp4",
