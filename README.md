@@ -6,6 +6,7 @@ https://nvidia-cosmos.github.io/cosmos-cookbook/recipes/post_training/reason2/in
 
 ### 1. Data Preparation
 Create a question/answer pair json file similar to this structure:
+``` qa.json
 [
   {
     "video_path": "path/to/video/example.mp4",
@@ -18,10 +19,11 @@ Create a question/answer pair json file similar to this structure:
     "a": "No, pedestrians aren't visible."
   }
 ]
+```
 
 Then run the following:
 ```
-python post_training_inference.py
+python post_training_inference.py --qa qa.json --out training.json
 ```
 ### 2. Training
 
