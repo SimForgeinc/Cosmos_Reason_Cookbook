@@ -14,7 +14,7 @@ Create a question/answer pair `qa.json` file with this structure:
     "a": "Description of what happens in the video."
   },
   {
-    "video_path": "path/to/video/example.mp4,
+    "video_path": "path/to/video/example.mp4",
     "q": "Is there a pedestrian visible?",
     "a": "No, pedestrians aren't visible."
   }
