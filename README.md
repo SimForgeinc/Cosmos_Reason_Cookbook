@@ -6,7 +6,8 @@ https://nvidia-cosmos.github.io/cosmos-cookbook/recipes/post_training/reason2/in
 
 ### 1. Data Preparation
 Create a question/answer pair json file similar to this structure:
-```
+`qa.json`
+``` json
 [
   {
     "video_path": "path/to/video/example.mp4",
@@ -25,7 +26,16 @@ Then run the following:
 ```
 python post_training_inference.py --qa qa.json --out training.json
 ```
-### 2. Training
+### 2. Post-Training with Supervised Fine Tuning (SFT)
+Training follows the resources used in the link above, but for reference, this is the relevant information for the fine-tuning step
+```
+# 1. Make sure the environment is set up following Cosmos Reason 2 post-training setup guide: https://github.com/nvidia-cosmos/cosmos-reason2/blob/main/examples/cosmos_rl/README.md#setup
+
+# 2. Activate the environment from cosmos-reason2/examples/cosmos_rl directory
+source .venv/bin/activate
+# 3. Run the training command from cosmos-cookbook/scripts/examples/reason2/intelligent-transportation directory
+cosmos-rl --config sft_config.toml custom_sft.py
+```
 
 ### 3. Evaluate Results
 Run the following:
