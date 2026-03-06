@@ -25,6 +25,8 @@ Then run the following:
 ```
 python post_training_inference.py --qa qa.json --out training.json
 ```
+The resulting `training.json` is the input into the next Supervised Fine Tuning stage. 
+
 ### 2. Post-Training with Supervised Fine Tuning (SFT)
 Training follows the resources used in the link above, but for reference, this is the relevant information for the fine-tuning step
 ```
@@ -34,6 +36,52 @@ Training follows the resources used in the link above, but for reference, this i
 source .venv/bin/activate
 # 3. Run the training command from cosmos-cookbook/scripts/examples/reason2/intelligent-transportation directory
 cosmos-rl --config sft_config.toml custom_sft.py
+```
+It is also worth mentioning the configuration parameters that need to be updated. The following serves as the example from the link above:
+```
+[custom.dataset]
+annotation_path = "/path/to/training.json"
+media_path = "/path/to/training/videos"
+system_prompt = "You are a helpful assistant."
+
+[custom.vision]
+nframes = 8
+
+[train]
+optm_lr = 2e-5
+output_dir = "outputs/output"
+optm_warmup_steps = 0
+optm_decay_type = "cosine"
+optm_weight_decay = 0.01
+train_batch_per_replica = 32
+enable_validation = false
+compile = false
+
+[policy]
+model_name_or_path = "nvidia/Cosmos-Reason2-2B"
+model_max_length = 32768
+
+[logging]
+logger = ['console', 'wandb']
+project_name = "cosmos_reason2"
+experiment_name = "post_training/experiment_name"
+
+[train.train_policy]
+type = "sft"
+mini_batch = 1
+dataset.test_size = 0
+dataloader_num_workers = 4
+dataloader_prefetch_factor = 4
+
+[train.ckpt]
+enable_checkpoint = true
+save_freq = 20
+
+[policy.parallelism]
+tp_size = 1
+cp_size = 1
+dp_shard_size = 8
+pp_size = 1
 ```
 
 ### 3. Evaluate Results
